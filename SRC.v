@@ -77,8 +77,6 @@ always @ (negedge sys_clk) begin
     //pull the latch line high to shift our data
     //into the output registers in the shift register
     LATCH <= 1;
-    //i think this is unnecessary
-    DATA = 0;
     //increment our data slice pointer
     pointer <= pointer + 1;
 

@@ -30,7 +30,7 @@ https://www.youtube.com/channel/UC42d7zFnWU0dYVk_M0JED6w
 */
 
 //this is the current data frame
-wire [63:0] data;
+reg [63:0] data;
 
 
 reg [2:0] address;
