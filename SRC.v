@@ -20,7 +20,7 @@ reg [15:0] data_out;
 //index of bit to be shifted out
 reg [5:0] shift_counter;
 
-//pointer to segment of memory to shift out
+//pointer to slice of memory to shift out
 reg [2:0] pointer;
 
 //stops clock if this is pulled low
@@ -59,16 +59,27 @@ always @ (negedge sys_clk) begin
 //16 bits to them
   if(shift_counter <= 15) begin
 
+    //not starting the clock until we are ready
     start_clk <= 1;
+    //increment bit address
     shift_counter <= shift_counter + 1;
+    //since these are non-blocking assignments,
+    //the value of shift_counter here will still
+    //be its previous value before the increment
     DATA <= data_out[shift_counter];
+    //keep the latch low while shifting bits out
     LATCH = 0;
 
   end else begin
 
+    //reset the shift counter
     shift_counter <= 0;
+    //pull the latch line high to shift our data
+    //into the output registers in the shift register
     LATCH <= 1;
+    //i think this is unnecessary
     DATA = 0;
+    //increment our data slice pointer
     pointer <= pointer + 1;
 
   end
